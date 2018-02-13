@@ -13,5 +13,5 @@ The app is built using HTML, CSS, Javascript, knockout.js in addition to Google 
 ### Using this app
 
 Feel free to download the repo from github and open in your editor.
-Github link:
+Github link:##https://github.com/hicham-alaoui/maps-leeds##
 
