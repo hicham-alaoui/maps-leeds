@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leeds Sample Map</title>
+
+<!-- Styling dependencies -->
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" media="(max-width: 670px)" href="css/responsive.css">
+
+  <!-- Bootstrap scripts -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<!-- main body -->
+<body>
+<!-- Navbar -->
+  <nav class="navbar navbar-inverse bg-primary" role="navigation">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand">Leeds Sample Map</a>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="nav-item">
+            <a class="nabar-brand" data-toggle="collapse" data-target="#locations-list"><b>Toggle Locations List</b></a>
+          </li> 
+          <form class="navbar-form navbar-left" role="search">
+            <div class="  input-group">
+              <input type="text" class="form-control" placeholder="Search" name="q" data-bind="textInput: fetchItem, valueUpdate: 'afterkeydown'">
+              <div class="input-group-btn">
+                <button class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+              </div>
+            </div>
+          </form>
+          <li class="nav-item">
+            <img id="flickr-button" src="img/flickr.png" alt="Flickr Logo">
+          </li> 
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- Main container -->
+  <main class="container-fluid">
+    <div class="row">
+      <div id="map"></div>
+      <aside class="col-md-1">
+        <div class="locations-list">
+          <div class="list-group" data-bind="foreach: locationList" id="locations-list">
+            <a data-bind="text: title, click: show" class="list-group-item list-group-item-action" ></a>
+          </div>
+        </div>
+      </aside>
+    </div>
+    <div class="modal">
+      <div class="modal-images">
+        <img id="close-modal" src="img/close.jpeg" alt="Modal close button">
+        <div class="imageContainer" onload="forwardArrow">
+        </div>
+        <img id="right-arrow" src="img/forward.png" alt="right-arrow">
+        <img id="left-arrow" src="img/backward.png" alt="left-arrow">
+      </div> 
+    </div>
+  </main>
+
+  <!-- Knockout.js -->
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+  <script src="js/lib/knockout.min.js"></script>
+  <script async type="text/javascript" src="js/flickr.js"></script>
+  <script src="js/locations.js"></script>
+  <script src="js/scripts.js"></script>
+
+  <!-- Google maps API --> 
+  <script async defer
+  src="https://maps.googleapis.com/maps/api/js?libraries=places,drawing,geometry&key=AIzaSyDV8PXSytMqo83TWGKwet-ITeSDGmlSz34&v=3&callback=initMap"  onerror="errorMessage()">
+  </script>
+</body>
+</html>
