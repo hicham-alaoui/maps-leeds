@@ -19,8 +19,8 @@ function initMap() {
 }
 
 // handle map error function
-function mapErrorMessage() {
-    alert('Ooops! Google Maps error.');
+    function mapErrorMessage() {
+        alert('Oops! Google map failed loading. Please try again.');
 }
 
 //Markers position variable
@@ -78,23 +78,22 @@ var markerPosition = function(data) {
     // Open Streetview on click event
     this.marker.addListener('click', function() {
         showItemInfo(this, self.street, self.city, self.phone, infoWindow);
-        toggleBounce(this);
         map.panTo(this.getPosition());
     });
 
-    // Display item when list ityem clicked
+    // Display item when list item clicked
     this.show = function(location) {
         google.maps.event.trigger(self.marker, 'click');
     };
 
 };
 
+
 //View Model
 var ViewModel = function() {
     var self = this;
 
     this.fetchItem = ko.observable('');
-
     this.locationsList = ko.observableArray([]);
 
     // add location markers for each location
@@ -165,8 +164,6 @@ function showItemInfo(marker, street, city, phone, infowindow) {
     }
 }
 
-
-
 // Create the marker icon .
 function markerIcon() {
     var iconImage = new google.maps.MarkerImage(
@@ -177,89 +174,3 @@ function markerIcon() {
         new google.maps.Size(26, 34));
     return iconImage;
 }
-
-
-//Adding Flickr
- var flickrJSON;
-
-//Binds click handler to flickr image to open modal
-$("#flickr-button").click(function() {
-    $(".modal").css("z-index", "3");
-    $(".modal").show();
-});
-
-//Binds click handler to x button to close modal
-$("#close-modal").click(function() {
-    $(".modal").css("z-index", "0");
-    $(".modal").hide();
-    $('.imageContainer img').hide();
-    fetchImages = true;
-});
-
-//GET JSON from flickr.
-//Display message if error getting flickr JSON.
-function getFlickrImages() {
-        var flickrUrl = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=1ebd3c90aefcf59a8152f8f3738a2a88&accuracy=16&lat=53.811506&lon=-1.532465&format=json';
-        $.ajax({
-            url: flickrUrl,
-            dataType: 'jsonp',
-            jsonp: 'jsoncallback',
-            success: function(data) {
-                var photo = data.photos.photo;
-                flickrJSON = photo;
-            },
-            error: function() {
-                $('.imageContainer').append('<h2 style="text-align: center;">Oops! Flickr images loading error. Try again</h2>');
-                $("#right-arrow").hide();
-                $("#left-arrow").hide();
-
-                }
-        });
-}
-getFlickrImages();
-
-var photosArray = [];
-var counter = 0;
-var fetchImages = false;
-
-//Function to get 25 images and store them in array.
-function setFlickrImages() {
-    if(fetchImages === false) {
-        for(var i=0; i < 25; i++) {
-            var number = Math.floor((Math.random() * 250) + 1);
-            var photo = 'https://farm' + flickrJSON[number].farm + '.staticflickr.com/' + flickrJSON[number].server + '/' + flickrJSON[number].id + '_' + flickrJSON[number].secret + '.jpg';
-            photosArray.push(photo);
-            $('.imageContainer').append('<img id="location-image' + i + '" src="' + photo + '" alt="' + flickrJSON[number].title + ' Flickr Image">');
-            $("#location-image" + i).hide();    
-            if(i < 1) {
-                $("#location-image" + i).show();
-            }
-        }
-    } else {
-        $("#location-image" + counter).show();
-    }
-}
-$("#flickr-button").click(setFlickrImages);
-
-//Bind click handler to arrow button to view next image
-function forwardArrow() {
-    $('#location-image' + counter).hide();
-    counter += 1;
-    if(counter >= 24) {
-        counter = 0;
-    }
-    $('#location-image' + counter).fadeIn(300); 
-}
-
-//Bind click handler to arrow button to view previous image.
-function backwardArrow() {
-    $('#location-image' + counter).hide();
-    counter -= 1;
-    if(counter < 0) {
-        counter = 24;
-    }
-    $('#location-image' + counter).fadeIn(300); 
-}
-
-$("#right-arrow").click(forwardArrow);
-$("#left-arrow").click(backwardArrow);             
