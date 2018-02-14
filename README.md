@@ -1,7 +1,7 @@
 # Udacity Neighborhood Map project
 
 
-## AThe project
+## The project
 
 This is a sample Google map for five landmarks in Leeds(UK) city centre. The map covers an area defined in the app's script with five markers for each of the five locations, Google streetview window information showing street, city and phone data generated using the Foursqaure API and a Flickr window to show images relating to the covered area.
 
