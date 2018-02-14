@@ -11,17 +11,17 @@
   
   <!-- CSS -->
   <link rel="stylesheet" href="css/styles.css">
-  
+  <link rel="stylesheet" media="(max-width: 670px)" href="css/responsive.css">
+
   <!-- Bootstrap scripts -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ 
 </head>
 <!-- main body -->
 <body>
 <!-- Navbar -->
   <nav class="navbar navbar-inverse bg-primary" role="navigation">
     <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#toggle-button">
           <span class="sr-only">Toggle navigation</span>
@@ -44,9 +44,6 @@
               </div>
             </div>
           </form>
-          <li class="nav-item">
-            <img id="flickr-button" src="img/flickr.png" alt="Flickr Logo">
-          </li> 
         </ul>
       </div>
     </div>
@@ -63,26 +60,18 @@
         </div>
       </aside>
     </div>
-    <div class="modal">
-      <div class="modal-images">
-        <img id="close-modal" src="img/close.jpeg" alt="Modal close button">
-        <div class="imageContainer" onload="forwardArrow">
-        </div>
-        <img id="right-arrow" src="img/forward.png" alt="right-arrow">
-        <img id="left-arrow" src="img/backward.png" alt="left-arrow">
-      </div> 
-    </div>
   </main>
 
-  <!-- Knockout.js -->
-  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+  <script src="js/scripts.js"></script>
   <script src="js/lib/knockout.min.js"></script>
   <script src="js/locations.js"></script>
-  <script src="js/scripts.js"></script>
 
   <!-- Google maps API --> 
   <script async defer
-  src="https://maps.googleapis.com/maps/api/js?libraries=places,drawing,geometry&key=AIzaSyDV8PXSytMqo83TWGKwet-ITeSDGmlSz34&v=3&callback=initMap"  onerror="errorMessage()">
+  src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDV8PXSytMqo83TWGKwet-ITeSDGmlSz34&v=3&callback=initMap"  onerror="mapErrorMessage()">
   </script>
 </body>
 </html>
