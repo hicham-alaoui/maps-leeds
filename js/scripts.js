@@ -14,13 +14,13 @@ function initMap() {
     infoWindow = new google.maps.InfoWindow();
 
     bounds = new google.maps.LatLngBounds();
-   
+    
     ko.applyBindings(new ViewModel());
 }
 
 // handle map error function
-    function mapErrorMessage() {
-        alert('Oops! Google map failed loading. Please try again.');
+function mapErrorMessage() {
+    alert('Oops! Google map failed loading. Please try again.');
 }
 
 //Markers position variable
@@ -59,9 +59,13 @@ var markerPosition = function(data) {
     this.marker = new google.maps.Marker({
         position: this.position,
         title: this.title,
-        animation: google.maps.Animation.DROP,
-        icon: defaultIcon
+        animation: google.maps.Animation.BOUNCE,
+        icon: defaultIcon    
     });    
+
+    setTimeout(function() {
+        self.marker.setAnimation(null);
+    }, 1500);
 
     //Using computed binding for markers
     self.filterMarkers = ko.computed(function () {
@@ -78,14 +82,20 @@ var markerPosition = function(data) {
     // Open Streetview on click event
     this.marker.addListener('click', function() {
         showItemInfo(this, self.street, self.city, self.phone, infoWindow);
+        bounceMarker(this);
         map.panTo(this.getPosition());
     });
 
-    // Display item when list item clicked
+
+    // show item info when selected from list
     this.show = function(location) {
         google.maps.event.trigger(self.marker, 'click');
     };
 
+    // creates bounce effect when item selected
+    this.bounce = function(place) {
+        google.maps.event.trigger(self.marker, 'click');
+    };
 };
 
 
@@ -109,8 +119,8 @@ var ViewModel = function() {
                 var str = location.title.toLowerCase();
                 var result = str.includes(searchFilter);
                 location.visible(result);
-				return result;
-			});
+                return result;
+            });
         }
         self.locationsList().forEach(function(location) {
             location.visible(true);
@@ -135,7 +145,7 @@ function showItemInfo(marker, street, city, phone, infowindow) {
         var radius = 50;
 
         var windowContent = '<h5>' + marker.title + '</h5>' + 
-            '<p>' + street + "<br>" + city + '<br>' + phone + "</p>";
+        '<p>' + street + "<br>" + city + '<br>' + phone + "</p>";
 
         // Compute the street view position.
         var streetView = function (data, status) {
@@ -164,6 +174,17 @@ function showItemInfo(marker, street, city, phone, infowindow) {
     }
 }
 
+function bounceMarker(marker) {
+  if (marker.getAnimation() !== null) {
+    marker.setAnimation(null);
+} else {
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+    setTimeout(function() {
+        marker.setAnimation(null);
+    }, 1500);
+}
+}
+
 // Create the marker icon .
 function markerIcon() {
     var iconImage = new google.maps.MarkerImage(
@@ -174,3 +195,4 @@ function markerIcon() {
         new google.maps.Size(26, 34));
     return iconImage;
 }
+
