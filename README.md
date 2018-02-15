@@ -7,7 +7,7 @@ This is a sample Google map for five landmarks in Leeds(UK) city centre. The map
 
 
 ## App coding "ingredients"
-The app is built using HTML, CSS, Javascript, knockout.js in addition to Google Maps, Foursquare and Flickr APIs.
+The app is built using HTML, CSS, Javascript, knockout.js in addition to Google Maps and Foursquare APIs.
 
 
 ## Using this app
